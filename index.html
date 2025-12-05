@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Hosting Manager - Integrated with bot-hosting.net</title>
+    <link rel="stylesheet" href="server-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Comprehensive bot hosting manager with real API integration for bot-hosting.net">
+    <meta name="keywords" content="bot hosting, server management, discord bots, dashboard, api integration">
+    <meta name="author" content="Bot Hosting Manager">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-app.onrender.com/">
+    <meta property="og:title" content="Bot Hosting Manager - Real API Integration">
+    <meta property="og:description" content="Manage your bot-hosting.net servers with real-time monitoring and control">
+    <meta property="og:image" content="https://picsum.photos/seed/bot-hosting-manager/1200/630.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-app.onrender.com/">
+    <meta property="twitter:title" content="Bot Hosting Manager - Real API Integration">
+    <meta property="twitter:description" content="Manage your bot-hosting.net servers with real-time monitoring and control">
+    <meta property="twitter:image" content="https://picsum.photos/seed/bot-hosting-manager/1200/630.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://bot-hosting.net">
+    <link rel="preconnect" href="https://control.bot-hosting.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Global Session Status -->
+    <div class="session-status" id="session-status">
+        <div class="session-container">
+            <div="session="session-info">
+                <i class="fas fa-server"></i>
+                <span id="session-text">Not Connected</span>
+            </div>
+            <div class="session-actions">
+                <button id="global-login-btn" class="session-btn">
+                    <i class="fas fa-sign-in-alt"></i> Connect
+                </button>
+                <button id="global-logout-btn" class="session-btn" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Disconnect
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="https://picsum.photos/seed/bot-hosting-logo/40/40.jpg" alt="Bot Hosting Logo">
+                <span>Bot Hosting Manager</span>
+                <span class="beta-badge">BETA</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active">Dashboard</a>
+                <a href="#servers" class="nav-link">My Servers</a>
+                <a href="#marketplace" class="nav-link">Marketplace</a>
+                <a href="#billing" class="nav-link">Billing</a>
+                <a href="#settings" class="nav-link">Settings</a>
+                <a href="#admin" class="nav-link admin-link">Admin</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Server Dashboard</h1>
+                    <p>Manage your bot hosting servers and monitor performance</p>
+                    <div class="connection-indicator">
+                        <span class="indicator-dot" id="connection-dot"></span>
+                        <span id="connection-status">Offline Mode</span>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Servers</h3>
+                            <span class="stat-number" id="total-servers">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div="stat-icon online">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div="stat-info">
+                            <h3>Online</h3>
+                            <span class="stat-number" id="online-servers">0</span>
+                        </div>
+                    </div>
+                    <div="="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Users</h3>
+                            <span class="stat-number" id="total-users">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div="stat="stat-icon premium">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Premium Servers</h3>
+                            <span class="stat-number" id="premium-servers">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Stats (when connected) -->
+                <div class="realtime-stats" id="realtime-stats" style="display: none;">
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <i class="fas fa-coins"></i>
+                            <span>Coins: <strong id="coins-amount">0</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Next Claim: <strong>id="claim-time">--</strong></span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-database"></i>
+                            <span>API Status: <strong id="api-status">Connected</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="action-btn primary" onclick="showCreateServerModal()">
+                        <i class="fas fa-plus"></i>
+                        Create New Server
+                    </button>
+                    <button class="action-btn" onclick="refreshAllServers()">
+                        <i class="fas fa-sync"></i>
+                        Refresh All
+                    </button>
+                    <button class="action-btn" onclick="showMarketplace()">
+                        <i="fas fa-store"></i>
+                        Browse Templates
+                    </button>
+                    <button class="action-btn" onclick="window.open('https://bot-hosting.net/panel', '_blank')">
+                        <i class="fas fa-external-link-alt"></i>
+                        Official Panel
+                    </button>
+                </div>
+
+                <!-- Server Overview -->
+                <div class="server-overview">
+                    <div class="section-header-small">
+                        <h2>Server Overview</h2>
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="setServerView('grid')">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" onclick="setServerView('list')">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="server-grid" id="server-grid">
+                        <!-- Servers will be loaded here -->
+                        <div class="loading-placeholder">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading servers...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Servers Section -->
+        <section id="servers" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>My Servers</h1>
+                    <div class="server-controls">
+                        <select id="server-filter" class="filter-select">
+                            <option value="all">All Servers</option>
+                            <option value="free">Free Servers</option>
+                            <option value="premium">Premium Servers</option>
+                            <option value="online">Online</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                        <button class="btn-secondary" onclick="showCreateServerModal()">
+                            <i class="fas fa-plus"></i> Create Server
+                        </button>
+                    </div>
+                </div>
+
+                <div class="server-list" id="server-list">
+                    <!-- Server list will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Marketplace Section -->
+        <section id="marketplace" class="section">
+            <div="container">
+                <div class="section-header">
+                    <h1>Server Marketplace</h1>
+                    <p>Deploy pre-configured templates and popular applications</p>
+                </div>
+
+                <div class="marketplace-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="bot">Discord Bots</button>
+                    <button class="category-btn" data-category="game">Game Servers</button>
+                    <button="category-btn" data-category="web">Web Hosting</button>
+                    <button class="category-btn" data-category="database">Database</button>
+                </div>
+
+                <div class="marketplace-grid" id="marketplace-grid">
+                    <!-- Marketplace items will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Billing Section -->
+        <section id="billing" class="section">
+            <div="container">
+                <div class="section-header">
+                    <h1>Billing & Plans</h>
+                    <p>Manage your subscription and payment methods</p>
+                </div>
+
+                <div class="billing-overview">
+                    <div class="current-plan">
+                        <h3>Current Plan</h3>
+                        <div class="plan-card">
+                            <div class="plan-header">
+                                <h4>Free Plan</h4>
+                                <span class="plan-price">$0/month</span>
+                            </div>
+                            <ul class="plan-features">
+                                <li><i class="fas fa-check"></i> 1 Free Server</li>
+                                <li><i="fas fa-check"></i> Basic Support</li>
+                                <li><i class="fas fa-check"></i> 512MB RAM</li>
+                                <li><i class="fas fa-times"></i> Custom Domains</li>
+                            </ul>
+                            <button class="btn-primary" onclick="window.open('https://bot-hosting.net/billing', '_blank')">
+                                Upgrade on bot-hosting.net
+                            </button>
+                        </div>
+                    </div>
+
+                    <div="class="usage-stats">
+                        <h3>Usage Statistics</h3>
+                        <div class="usage-item">
+                            <span class="usage-label">Server Hours This Month</span>
+                            <div class="usage-bar">
+                                <div class="usage-fill" style="width: 75%"></div>
+                            </div>
+                            <span class="usage-value">180/240 hours</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-label">Storage Used</span>
+                            <div class="usage-bar">
+                                <div class="usage-fill" style="width: 45%"></div>
+                            </div>
+                            <span class="usage-value">450MB/1GB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="billing-history">
+                    <h3>Payment History</h3>
+                    <div class="transaction-list">
+                        <div class="transaction-item">
+                            <span class="transaction-date">2024-12-01</span>
+                            <span class="transaction-desc">Premium Plan</span>
+                            <span class="transaction-amount">$10.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Settings</h1>
+                    <p>Configure your account and preferences</p>
+                </div>
+
+                <div class="settings-tabs">
+                    <button class="settings-tab active" data-tab="account">Account</button>
+                    <button class="settings-tab" data-tab="notifications">Notifications</button>
+                    <button class="settings-tab" data-tab="api">API Keys</button>
+                    <button class="settings-tab" data-tab="security">Security</button>
+                </div>
+
+                <div class="settings-content">
+                    <div class="settings-panel active" id="account-panel">
+                        <h3>Account Information</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" id="settings-username" value="User">
+                            </div>
+                            <div="class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="settings-email" value="user@example.com">
+                            </div>
+                            <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="api-panel">
+                        <h3>API Configuration</h3>
+                        <div class="api-info">
+                            <div class="info-card">
+                                <h4>How to get your Auth ID:</h4>
+                                <ol>
+                                    <li>Login to your account on <a href="https://bot-hosting.net/panel" target="_blank">bot-hosting.net</a></li>
+                                    <li>Open browser console (F12)</li>
+                                    <li>Run: <code>var token = localStorage.getItem('token');</code></li>
+                                    <li>Run: <code>console.log('Your Auth ID:', token);</code></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <div="div class="container">
+                <div class="section-header">
+                    <h1>Admin Panel</h1>
+                    <p>System administration and user management</p>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="users">Users</button>
+                    <button class="admin-tab" data-tab="servers">All Servers</button>
+                    <button class="admin-tab" data-tab="system">System</button>
+                    <button class="admin-tab" data-tab="billing">Billing Admin</button>
+                </div>
+
+                <div class="admin-content">
+                    <div class="admin-panel active" id="users-panel">
+                        <h3>User Management</h3>
+                        <div class="user-controls">
+                            <button class="btn-primary" onclick="showCreateUserModal()">
+                                <i class="fas fa-user-plus"></i> Add User
+                            </button>
+                            <input type="text" class="search-input" placeholder="Search users..." id="user-search">
+                        </div>
+                        <div class="user-list" id="user-list">
+                            <!-- Users will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Create Server Modal -->
+    <div class="modal" id="create-server-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Server</h2>
+                <button class="modal-close" onclick="closeModal('create-server-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="create-server-form">
+                    <div class="form-group">
+                        <label>Server Name</label>
+                        <input type="text" id="server-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Server Type</label>
+                        <select id="server-type" required>
+                            <option value="discord-bot">Discord Bot</option>
+                            <option value="game-server">Game Server</option>
+                            <option value="web-server">Web Server</option>
+                            <option value="database">Database</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Plan</label>
+                        <div class="plan-options">
+                            <label class="plan-option">
+                                <input type="radio" name="plan" value="free" checked>
+                                <div class="plan-card-small">
+                                    <h4>Free</h4>
+                                    <span>$0/month</span>
+                                    <small>512MB RAM, 10GB Storage</small>
+                                </div>
+                            </label>
+                            <label class="plan-option">
+                                <input type="radio" name="plan" value="premium">
+                                <div class="plan-card-small">
+                                    <h4>Premium</h4>
+span>$10/month</span>
+                                    <small>4GB RAM, 50GB Storage</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select id="server-region">
+                            <option value="us-east">US East</option>
+                            <option value="us-west">US West</option>
+                            <option value="eu">Europe</option>
+                            <option value="asia">Asia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Language/Runtime</label>
+                        <select id="server-language">
+                            <option value="nodejs">Node.js</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="deno">Deno</option>
+                            <option value="lua">Lua</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('create-server-modal')">Cancel</button>
+                <button class="btn-primary" onclick="createServer()">Create Server</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Login Modal -->
+    <div class="modal" id="global-login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Connect to Bot Hosting</h2>
+                <button class="modal-close" onclick="closeModal('global-login-modal')">
+                    <i class="fas="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="global-login-form">
+                    <div class="form-group">
+                        <label>Bot-hosting.net Username</label>
+                        <input type="text" id="global-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Auth ID (Token)</label>
+                        <input type="password" id="global-apikey" required>
+                        <small>Get your Auth ID from bot-hosting.net panel (see API tab in settings)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="shared-access" checked>
+                            Enable shared access (anyone can view when you're connected)
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('global-login-modal')">Cancel</button>
+                <button class="btn-primary" onclick="globalLogin()">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bot Hosting Manager</h4>
+                    <p>Third-party management interface for bot-hosting.net</p>
+                    <div class="footer-links">
+                        <a href="https://bot-hosting.net" target="_blank">Official Site</a>
+                        <a href="https://wiki.bot-hosting.net" target="_blank">Documentation</a>
+                        <a href="https://discord.gg/6FKKj4qEM6" target="_blank">Discord</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Real-time server management</li>
+                        <li>API integration</li>
+                        <li>Multi-server support</li>
+                        <li>Billing integration</li>
+                    </ul>
+                </div>
+                <div="footer="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>24/7 Discord support</li>
+                        <li>API documentation</li>
+                        <li>Community forums</li>
+                        <li>Feature requests</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bot Hosting Manager. Not affiliated with bot-hosting.net</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="server-script.js"></script>
+</body>
+</html>

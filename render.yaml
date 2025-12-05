@@ -1,0 +1,52 @@
+services:
+  # Static Site Service
+  - type: web
+    name: bot-hosting-manager
+    env: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-XSS-Protection
+        value: "1; mode=block"
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: "geolocation=(), microphone=(), camera=()"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BOT_HOSTING_API_BASE_URL
+        value: https://bot-hosting.net/api/v1
+      - key: BOT_HOSTING_PANEL_URL
+        value: https://control.bot-hosting.net
+
+  # Backup Node.js Service (alternative to static)
+  - type: web
+    name: bot-hosting-manager-node
+    env: node
+    plan: free
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm start"
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: BOT_HOSTING_API_BASE_URL
+        value: https://bot-hosting.net/api/v1
+      - key: BOT_HOSTING_PANEL_URL
+        value: https://control.bot-hosting.net
