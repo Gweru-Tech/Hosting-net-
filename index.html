@@ -3,535 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Hosting Manager - Integrated with bot-hosting.net</title>
-    <link rel="stylesheet" href="server-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <meta name="description" content="Comprehensive bot hosting manager with real API integration for bot-hosting.net">
-    <meta name="keywords" content="bot hosting, server management, discord bots, dashboard, api integration">
-    <meta name="author" content="Bot Hosting Manager">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-app.onrender.com/">
-    <meta property="og:title" content="Bot Hosting Manager - Real API Integration">
-    <meta property="og:description" content="Manage your bot-hosting.net servers with real-time monitoring and control">
-    <meta property="og:image" content="https://picsum.photos/seed/bot-hosting-manager/1200/630.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://your-app.onrender.com/">
-    <meta property="twitter:title" content="Bot Hosting Manager - Real API Integration">
-    <meta property="twitter:description" content="Manage your bot-hosting.net servers with real-time monitoring and control">
-    <meta property="twitter:image" content="https://picsum.photos/seed/bot-hosting-manager/1200/630.jpg">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
-    
-    <!-- Preconnect for performance -->
+    <title>Ntandostore - Premium Fashion & Lifestyle</title>
+    <meta name="description" content="Discover premium fashion and lifestyle products at Ntandostore. Quality meets style in our curated collection.">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://bot-hosting.net">
-    <link rel="preconnect" href="https://control.bot-hosting.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
-    <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
 <body>
-    <!-- Global Session Status -->
-    <div class="session-status" id="session-status">
-        <div class="session-container">
-            <div="session="session-info">
-                <i class="fas fa-server"></i>
-                <span id="session-text">Not Connected</span>
-            </div>
-            <div class="session-actions">
-                <button id="global-login-btn" class="session-btn">
-                    <i class="fas fa-sign-in-alt"></i> Connect
-                </button>
-                <button id="global-logout-btn" class="session-btn" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Disconnect
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <img src="https://picsum.photos/seed/bot-hosting-logo/40/40.jpg" alt="Bot Hosting Logo">
-                <span>Bot Hosting Manager</span>
-                <span class="beta-badge">BETA</span>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Ntando<span>Store</span></h2>
             </div>
-            <div class="nav-menu">
-                <a href="#dashboard" class="nav-link active">Dashboard</a>
-                <a href="#servers" class="nav-link">My Servers</a>
-                <a href="#marketplace" class="nav-link">Marketplace</a>
-                <a href="#billing" class="nav-link">Billing</a>
-                <a href="#settings" class="nav-link">Settings</a>
-                <a href="#admin" class="nav-link admin-link">Admin</a>
-            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#products" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
             <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="section active">
-            <div class="container">
-                <div class="section-header">
-                    <h1>Server Dashboard</h1>
-                    <p>Manage your bot hosting servers and monitor performance</p>
-                    <div class="connection-indicator">
-                        <span class="indicator-dot" id="connection-dot"></span>
-                        <span id="connection-status">Offline Mode</span>
-                    </div>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Total Servers</h3>
-                            <span class="stat-number" id="total-servers">0</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div="stat-icon online">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div="stat-info">
-                            <h3>Online</h3>
-                            <span class="stat-number" id="online-servers">0</span>
-                        </div>
-                    </div>
-                    <div="="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Total Users</h3>
-                            <span class="stat-number" id="total-users">0</span>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div="stat="stat-icon premium">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3>Premium Servers</h3>
-                            <span class="stat-number" id="premium-servers">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Real-time Stats (when connected) -->
-                <div class="realtime-stats" id="realtime-stats" style="display: none;">
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <i class="fas fa-coins"></i>
-                            <span>Coins: <strong id="coins-amount">0</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Next Claim: <strong>id="claim-time">--</strong></span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-database"></i>
-                            <span>API Status: <strong id="api-status">Connected</strong></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <button class="action-btn primary" onclick="showCreateServerModal()">
-                        <i class="fas fa-plus"></i>
-                        Create New Server
-                    </button>
-                    <button class="action-btn" onclick="refreshAllServers()">
-                        <i class="fas fa-sync"></i>
-                        Refresh All
-                    </button>
-                    <button class="action-btn" onclick="showMarketplace()">
-                        <i="fas fa-store"></i>
-                        Browse Templates
-                    </button>
-                    <button class="action-btn" onclick="window.open('https://bot-hosting.net/panel', '_blank')">
-                        <i class="fas fa-external-link-alt"></i>
-                        Official Panel
-                    </button>
-                </div>
-
-                <!-- Server Overview -->
-                <div class="server-overview">
-                    <div class="section-header-small">
-                        <h2>Server Overview</h2>
-                        <div class="view-toggle">
-                            <button class="view-btn active" onclick="setServerView('grid')">
-                                <i class="fas fa-th"></i>
-                            </button>
-                            <button class="view-btn" onclick="setServerView('list')">
-                                <i class="fas fa-list"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="server-grid" id="server-grid">
-                        <!-- Servers will be loaded here -->
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading servers...</p>
-                        </div>
-                    </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Premium Fashion <span>& Lifestyle</span></h1>
+                <p class="hero-subtitle">Discover our curated collection of high-quality products that blend style, comfort, and sophistication.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">Shop Now</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
                 </div>
             </div>
-        </section>
-
-        <!-- My Servers Section -->
-        <section id="servers" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h1>My Servers</h1>
-                    <div class="server-controls">
-                        <select id="server-filter" class="filter-select">
-                            <option value="all">All Servers</option>
-                            <option value="free">Free Servers</option>
-                            <option value="premium">Premium Servers</option>
-                            <option value="online">Online</option>
-                            <option value="offline">Offline</option>
-                        </select>
-                        <button class="btn-secondary" onclick="showCreateServerModal()">
-                            <i class="fas fa-plus"></i> Create Server
-                        </button>
-                    </div>
+            <div class="hero-image">
+                <div class="hero-placeholder">
+                    <i class="fas fa-tshirt"></i>
                 </div>
-
-                <div class="server-list" id="server-list">
-                    <!-- Server list will be loaded here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Marketplace Section -->
-        <section id="marketplace" class="section">
-            <div="container">
-                <div class="section-header">
-                    <h1>Server Marketplace</h1>
-                    <p>Deploy pre-configured templates and popular applications</p>
-                </div>
-
-                <div class="marketplace-categories">
-                    <button class="category-btn active" data-category="all">All</button>
-                    <button class="category-btn" data-category="bot">Discord Bots</button>
-                    <button class="category-btn" data-category="game">Game Servers</button>
-                    <button="category-btn" data-category="web">Web Hosting</button>
-                    <button class="category-btn" data-category="database">Database</button>
-                </div>
-
-                <div class="marketplace-grid" id="marketplace-grid">
-                    <!-- Marketplace items will be loaded here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Billing Section -->
-        <section id="billing" class="section">
-            <div="container">
-                <div class="section-header">
-                    <h1>Billing & Plans</h>
-                    <p>Manage your subscription and payment methods</p>
-                </div>
-
-                <div class="billing-overview">
-                    <div class="current-plan">
-                        <h3>Current Plan</h3>
-                        <div class="plan-card">
-                            <div class="plan-header">
-                                <h4>Free Plan</h4>
-                                <span class="plan-price">$0/month</span>
-                            </div>
-                            <ul class="plan-features">
-                                <li><i class="fas fa-check"></i> 1 Free Server</li>
-                                <li><i="fas fa-check"></i> Basic Support</li>
-                                <li><i class="fas fa-check"></i> 512MB RAM</li>
-                                <li><i class="fas fa-times"></i> Custom Domains</li>
-                            </ul>
-                            <button class="btn-primary" onclick="window.open('https://bot-hosting.net/billing', '_blank')">
-                                Upgrade on bot-hosting.net
-                            </button>
-                        </div>
-                    </div>
-
-                    <div="class="usage-stats">
-                        <h3>Usage Statistics</h3>
-                        <div class="usage-item">
-                            <span class="usage-label">Server Hours This Month</span>
-                            <div class="usage-bar">
-                                <div class="usage-fill" style="width: 75%"></div>
-                            </div>
-                            <span class="usage-value">180/240 hours</span>
-                        </div>
-                        <div class="usage-item">
-                            <span class="usage-label">Storage Used</span>
-                            <div class="usage-bar">
-                                <div class="usage-fill" style="width: 45%"></div>
-                            </div>
-                            <span class="usage-value">450MB/1GB</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="billing-history">
-                    <h3>Payment History</h3>
-                    <div class="transaction-list">
-                        <div class="transaction-item">
-                            <span class="transaction-date">2024-12-01</span>
-                            <span class="transaction-desc">Premium Plan</span>
-                            <span class="transaction-amount">$10.00</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Settings Section -->
-        <section id="settings" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h1>Settings</h1>
-                    <p>Configure your account and preferences</p>
-                </div>
-
-                <div class="settings-tabs">
-                    <button class="settings-tab active" data-tab="account">Account</button>
-                    <button class="settings-tab" data-tab="notifications">Notifications</button>
-                    <button class="settings-tab" data-tab="api">API Keys</button>
-                    <button class="settings-tab" data-tab="security">Security</button>
-                </div>
-
-                <div class="settings-content">
-                    <div class="settings-panel active" id="account-panel">
-                        <h3>Account Information</h3>
-                        <div class="settings-form">
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" id="settings-username" value="User">
-                            </div>
-                            <div="class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="settings-email" value="user@example.com">
-                            </div>
-                            <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
-                        </div>
-                    </div>
-
-                    <div class="settings-panel" id="api-panel">
-                        <h3>API Configuration</h3>
-                        <div class="api-info">
-                            <div class="info-card">
-                                <h4>How to get your Auth ID:</h4>
-                                <ol>
-                                    <li>Login to your account on <a href="https://bot-hosting.net/panel" target="_blank">bot-hosting.net</a></li>
-                                    <li>Open browser console (F12)</li>
-                                    <li>Run: <code>var token = localStorage.getItem('token');</code></li>
-                                    <li>Run: <code>console.log('Your Auth ID:', token);</code></li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Section -->
-        <section id="admin" class="section">
-            <div="div class="container">
-                <div class="section-header">
-                    <h1>Admin Panel</h1>
-                    <p>System administration and user management</p>
-                </div>
-
-                <div class="admin-tabs">
-                    <button class="admin-tab active" data-tab="users">Users</button>
-                    <button class="admin-tab" data-tab="servers">All Servers</button>
-                    <button class="admin-tab" data-tab="system">System</button>
-                    <button class="admin-tab" data-tab="billing">Billing Admin</button>
-                </div>
-
-                <div class="admin-content">
-                    <div class="admin-panel active" id="users-panel">
-                        <h3>User Management</h3>
-                        <div class="user-controls">
-                            <button class="btn-primary" onclick="showCreateUserModal()">
-                                <i class="fas fa-user-plus"></i> Add User
-                            </button>
-                            <input type="text" class="search-input" placeholder="Search users..." id="user-search">
-                        </div>
-                        <div class="user-list" id="user-list">
-                            <!-- Users will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Create Server Modal -->
-    <div class="modal" id="create-server-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create New Server</h2>
-                <button class="modal-close" onclick="closeModal('create-server-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="create-server-form">
-                    <div class="form-group">
-                        <label>Server Name</label>
-                        <input type="text" id="server-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Server Type</label>
-                        <select id="server-type" required>
-                            <option value="discord-bot">Discord Bot</option>
-                            <option value="game-server">Game Server</option>
-                            <option value="web-server">Web Server</option>
-                            <option value="database">Database</option>
-                            <option value="custom">Custom</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Plan</label>
-                        <div class="plan-options">
-                            <label class="plan-option">
-                                <input type="radio" name="plan" value="free" checked>
-                                <div class="plan-card-small">
-                                    <h4>Free</h4>
-                                    <span>$0/month</span>
-                                    <small>512MB RAM, 10GB Storage</small>
-                                </div>
-                            </label>
-                            <label class="plan-option">
-                                <input type="radio" name="plan" value="premium">
-                                <div class="plan-card-small">
-                                    <h4>Premium</h4>
-span>$10/month</span>
-                                    <small>4GB RAM, 50GB Storage</small>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Region</label>
-                        <select id="server-region">
-                            <option value="us-east">US East</option>
-                            <option value="us-west">US West</option>
-                            <option value="eu">Europe</option>
-                            <option value="asia">Asia</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Language/Runtime</label>
-                        <select id="server-language">
-                            <option value="nodejs">Node.js</option>
-                            <option value="python">Python</option>
-                            <option value="java">Java</option>
-                            <option value="deno">Deno</option>
-                            <option value="lua">Lua</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('create-server-modal')">Cancel</button>
-                <button class="btn-primary" onclick="createServer()">Create Server</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Global Login Modal -->
-    <div class="modal" id="global-login-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Connect to Bot Hosting</h2>
-                <button class="modal-close" onclick="closeModal('global-login-modal')">
-                    <i class="fas="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="global-login-form">
-                    <div class="form-group">
-                        <label>Bot-hosting.net Username</label>
-                        <input type="text" id="global-username" required>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
                     </div>
-                    <div class="form-group">
-                        <label>Auth ID (Token)</label>
-                        <input type="password" id="global-apikey" required>
-                        <small>Get your Auth ID from bot-hosting.net panel (see API tab in settings)</small>
+                    <h3>Free Shipping</h3>
+                    <p>On orders over $50</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="shared-access" checked>
-                            Enable shared access (anyone can view when you're connected)
-                        </label>
+                    <h3>Secure Payment</h3>
+                    <p>100% secure transactions</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
                     </div>
-                </form>
-            </div>
-            <div="modal-footer">
-                <button class="btn-secondary" onclick="closeModal('global-login-modal')">Cancel</button>
-                <button class="btn-primary" onclick="globalLogin()">Connect</button>
+                    <h3>Easy Returns</h3>
+                    <p>30-day return policy</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated customer service</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Explore our best-selling collection</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Cotton T-Shirt</h3>
+                        <p class="product-price">$29.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(4.5)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Classic Denim Jacket</h3>
+                        <p class="product-price">$89.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(5.0)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Designer Sneakers</h3>
+                        <p class="product-price">$149.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(4.0)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-glasses"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Sunglasses</h3>
+                        <p class="product-price">$79.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(4.7)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-watch"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luxury Watch</h3>
+                        <p class="product-price">$299.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(5.0)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="product-overlay">
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Leather Handbag</h3>
+                        <p class="product-price">$199.99</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(4.2)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Ntandostore</h2>
+                    <p>Welcome to Ntandostore, where fashion meets quality and style meets sophistication. Since our inception, we've been dedicated to bringing you the finest collection of premium fashion and lifestyle products.</p>
+                    <p>Our carefully curated selection features the latest trends in fashion, accessories, and lifestyle essentials. Each product is handpicked for its quality, design, and ability to enhance your personal style.</p>
+                    <p>At Ntandostore, we believe that everyone deserves to look and feel their best. That's why we're committed to providing exceptional customer service, fast shipping, and a shopping experience that's second to none.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>10K+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Products</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-placeholder">
+                        <i class="fas fa-store"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Visit Us</h3>
+                            <p>123 Fashion Street, Style City, SC 12345</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Call Us</h3>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Us</h3>
+                            <p>info@ntandostore.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Bot Hosting Manager</h4>
-                    <p>Third-party management interface for bot-hosting.net</p>
-                    <div class="footer-links">
-                        <a href="https://bot-hosting.net" target="_blank">Official Site</a>
-                        <a href="https://wiki.bot-hosting.net" target="_blank">Documentation</a>
-                        <a href="https://discord.gg/6FKKj4qEM6" target="_blank">Discord</a>
+                    <h3>Ntando<span>Store</span></h3>
+                    <p>Your premier destination for premium fashion and lifestyle products.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
-                    <h4>Features</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li>Real-time server management</li>
-                        <li>API integration</li>
-                        <li>Multi-server support</li>
-                        <li>Billing integration</li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                <div="footer="footer-section">
-                    <h4>Support</h4>
+                <div class="footer-section">
+                    <h4>Categories</h4>
                     <ul>
-                        <li>24/7 Discord support</li>
-                        <li>API documentation</li>
-                        <li>Community forums</li>
-                        <li>Feature requests</li>
+                        <li><a href="#">Men's Fashion</a></li>
+                        <li><a href="#">Women's Fashion</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Lifestyle</a></li>
                     </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get special offers and updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Bot Hosting Manager. Not affiliated with bot-hosting.net</p>
+                <p>&copy; 2024 Ntandostore. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="server-script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

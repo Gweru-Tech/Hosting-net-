@@ -1,44 +1,36 @@
 {
-  "name": "bot-hosting-manager",
-  "version": "2.0.0",
-  "description": "A comprehensive third-party management interface for bot-hosting.net",
-  "main": "server.js",
+  "name": "ntandostore",
+  "version": "1.0.0",
+  "description": "Premium fashion and lifestyle e-commerce website",
+  "main": "index.html",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "echo 'Build completed - static files ready'",
-    "serve": "node server.js",
-    "test": "echo 'No tests specified' && exit 0"
+    "build": "echo 'Build complete - static files ready for deployment'",
+    "preview": "node server.js"
   },
   "keywords": [
-    "bot-hosting",
-    "server-management",
-    "dashboard",
-    "discord",
-    "api-integration"
+    "ecommerce",
+    "fashion",
+    "lifestyle",
+    "store",
+    "shopping"
   ],
-  "author": "Bot Hosting Manager Team",
+  "author": "Ntandostore Team",
   "license": "MIT",
   "engines": {
-    "node": ">=14.0.0"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "compression": "^1.7.4",
-    "helmet": "^7.1.0",
-    "cors": "^2.8.5",
-    "express-rate-limit": "^7.1.5",
-    "morgan": "^1.10.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
+    "node": "14.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/bot-hosting-manager.git"
+    "url": "git+https://github.com/ntandostore/ntandostore.git"
   },
+  "homepage": "https://ntandostore.com",
+  "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/your-username/bot-hosting-manager/issues"
+    "url": "https://github.com/ntandostore/ntandostore/issues"
   },
-  "homepage": "https://github.com/your-username/bot-hosting-manager#readme"
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
