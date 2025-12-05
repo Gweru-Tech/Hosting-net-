@@ -3,387 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ntandostore - Premium Fashion & Lifestyle</title>
-    <meta name="description" content="Discover premium fashion and lifestyle products at Ntandostore. Quality meets style in our curated collection.">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bot Hosting - Free Discord Bot Hosting & Game Servers</title>
+    <link rel="stylesheet" href="server-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free Discord bot hosting and game server hosting. Deploy your bots in seconds with our easy-to-use panel. Get 24/7 support and 99.9% uptime.">
+    <meta name="keywords" content="discord bot hosting, free bot hosting, game server hosting, minecraft hosting, nodejs hosting, python hosting">
+    <meta name="author" content="Bot Hosting">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bot Hosting - Free Discord Bot Hosting">
+    <meta property="og:description" content="Deploy your Discord bots and game servers for free. Instant setup, 24/7 support, and enterprise-grade infrastructure.">
+    <meta property="og:image" content="https://picsum.photos/seed/bot-hosting-og/1200/630.jpg">
+    <meta property="og:url" content="https://your-app.onrender.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <h2>Ntando<span>Store</span></h2>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-robot"></i>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#products" class="nav-link">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <h2>Bot Hosting</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Premium Fashion <span>& Lifestyle</span></h1>
-                <p class="hero-subtitle">Discover our curated collection of high-quality products that blend style, comfort, and sophistication.</p>
-                <div class="hero-buttons">
-                    <a href="#products" class="btn btn-primary">Shop Now</a>
-                    <a href="#about" class="btn btn-secondary">Learn More</a>
+    <!-- Login/Signup Modals -->
+    <div class="auth-modals">
+        <!-- Login Modal -->
+        <div class="modal" id="login-modal">
+            <div class="modal-content auth-modal">
+                <div class="modal-header">
+                    <h2>Welcome Back</h2>
+                    <button class="modal-close" onclick="closeAuthModal('login-modal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Email or Username</label>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="login-email" required placeholder="Enter your email or username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="login-password" required placeholder="Enter your password">
+                                <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#" onclick="showAuthModal('forgot-modal')">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Sign In
+                        </button>
+                    </form>
+                    <div class="auth-divider">
+                        <span>OR</span>
+                    </div>
+                    <button class="btn-discord full-width" onclick="loginWithDiscord()">
+                        <i class="fab fa-discord"></i>
+                        Continue with Discord
+                    </button>
+                    <button class="btn-github full-width" onclick="loginWithGitHub()">
+                        <i class="fab fa-github"></i>
+                        Continue with GitHub
+                    </button>
+                    <div class="auth-footer">
+                        Don't have an account? <a href="#" onclick="switchToSignup()">Sign up</a>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-placeholder">
-                    <i class="fas fa-tshirt"></i>
+        </div>
+
+        <!-- Signup Modal -->
+        <div class="modal" id="signup-modal">
+            <div class="modal-content auth-modal">
+                <div class="modal-header">
+                    <h2>Create Account</h2>
+                    <button class="modal-close" onclick="closeAuthModal('signup-modal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="signup-form" onsubmit="handleSignup(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <div class="input-group">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="signup-username" required placeholder="Choose a username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div class="input-group">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="signup-email" required placeholder="Enter your email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="signup-password" required placeholder="Create a strong password">
+                                <button type="button" class="password-toggle" onclick="togglePassword('signup-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="password-strength-fill"></div>
+                                </div>
+                                <span id="password-strength-text">Password strength</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="signup-confirm" required placeholder="Confirm your password">
+                            </div>
+                        </div>
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="agree-terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    <div class="auth-divider">
+                        <span>OR</span>
+                    </div>
+                    <button class="btn-discord full-width" onclick="loginWithDiscord()">
+                        <i class="fab fa-discord"></i>
+                        Sign up with Discord
+                    </button>
+                    <button class="btn-github full-width" onclick="loginWithGitHub()">
+                        <i class="fab fa-github"></i>
+                        Sign up with GitHub
+                    </button>
+                    <div class="auth-footer">
+                        Already have an account? <a href="#" onclick="switchToLogin()">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Modal -->
+        <div class="modal" id="forgot-modal">
+            <div class="modal-content auth-modal">
+                <div class="modal-header">
+                    <h2>Reset Password</h2>
+                    <button class="modal-close" onclick="closeAuthModal('forgot-modal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your email address and we'll send you a link to reset your password.</p>
+                    <form id="forgot-form" onsubmit="handleForgotPassword(event)">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <div class="input-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="forgot-email" required placeholder="Enter your email">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary full-width">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Reset Link
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <a href="#" onclick="switchToLogin()"><i class="fas fa-arrow-left"></i> Back to Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <span>Bot Hosting</span>
+                </div>
+                <nav class="main-nav">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#docs" class="nav-link">Documentation</a>
+                    <a href="#support" class="nav-link">Support</a>
+                    <div class="auth-buttons" id="auth-buttons">
+                        <button class="btn-secondary" onclick="showAuthModal('login-modal')">Sign In</button>
+                        <button class="btn-primary" onclick="showAuthModal('signup-modal')">Sign Up</button>
+                    </div>
+                    <div class="user-menu" id="user-menu" style="display: none;">
+                        <button class="user-avatar" onclick="toggleUserDropdown()">
+                            <img id="user-avatar-img" src="https://picsum.photos/seed/default-avatar/40/40.jpg" alt="User">
+                            <span id="user-name-display">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown" id="user-dropdown">
+                            <a href="#" onclick="navigateToDashboard()">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                            <a href="#" onclick="navigateToSettings()">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <a href="#" onclick="navigateToBilling()">
+                                <i class="fas fa-credit-card"></i>
+                                Billing
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Deploy Your <span class="gradient-text">Discord Bots</span> & <span class="gradient-text">Game Servers</span> in Seconds
+                    </h1>
+                    <p class="hero-subtitle">
+                        Free hosting with enterprise-grade infrastructure. 24/7 support, 99.9% uptime, and instant deployment. Join thousands of developers hosting their projects with us.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn-primary btn-large" onclick="showAuthModal('signup-modal')">
+                            <i class="fas fa-rocket"></i>
+                            Start Free Hosting
+                        </button>
+                        <button class="btn-secondary btn-large" onclick="scrollToSection('features')">
+                            <i class="fas fa-play-circle"></i>
+                            View Features
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-count="50000">0</span>
+                            <span class="stat-label">Active Bots</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="99.9">0</span>
+                            <span class="stat-label">% Uptime</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="24">0</span>
+                            <span class="stat-label">/7 Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="terminal-btn red"></span>
+                                <span class="terminal-btn yellow"></span>
+                                <span class="terminal-btn green"></span>
+                            </div>
+                            <span class="terminal-title">Terminal</span>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="prompt">$</span>
+                                <span class="command" id="typing-command"></span>
+                                <span class="cursor">|</span>
+                            </div>
+                            <div class="terminal-output">
+                                <div class="output-line success">✓ Server created successfully</div>
+                                <div class="output-line">✓ Bot deployed and running</div>
+                                <div class="output-line success">✓ Ready to handle requests</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features-section" id="features">
         <div class="container">
+            <div class="section-header">
+                <h2>Everything You Need to <span class="gradient-text">Deploy & Scale</span></h2>
+                <p>Professional hosting platform with features that help you build, deploy, and manage your applications with ease.</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-truck"></i>
+                        <i class="fas fa-rocket"></i>
                     </div>
-                    <h3>Free Shipping</h3>
-                    <p>On orders over $50</p>
+                    <h3>Instant Deployment</h3>
+                    <p>Deploy your Discord bots or game servers in seconds with our one-click deployment system. No complex setup required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Free Forever Plan</h3>
+                    <p>Get started with our free plan including 512MB RAM, 10GB storage, and unlimited bandwidth. No credit card required.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Secure Payment</h3>
-                    <p>100% secure transactions</p>
+                    <h3>Enterprise Security</h3>
+                    <p>DDoS protection, SSL certificates, automatic backups, and advanced security features to keep your applications safe.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-undo"></i>
+                        <i class="fas fa-code"></i>
                     </div>
-                    <h3>Easy Returns</h3>
-                    <p>30-day return policy</p>
+                    <h3>Multiple Runtimes</h3>
+                    <p>Support for Node.js, Python, Java, Deno, Lua, and more. Deploy your projects in your preferred language.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Free Databases</h3>
+                    <p>MySQL, PostgreSQL, MongoDB, and Redis databases included with every plan at no additional cost.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
                     <h3>24/7 Support</h3>
-                    <p>Dedicated customer service</p>
+                    <p>Get help whenever you need it with our 24/7 Discord support team and comprehensive documentation.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="products">
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
         <div class="container">
             <div class="section-header">
-                <h2>Featured Products</h2>
-                <p>Explore our best-selling collection</p>
+                <h2>Simple, Transparent <span class="gradient-text">Pricing</span></h2>
+                <p>Choose the plan that fits your needs. Start free and upgrade as you grow.</p>
             </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-tshirt"></i>
+            <div class="pricing-grid">
+                <div class="pricing-card free">
+                    <div class="pricing-header">
+                        <h3>Free</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">0</span>
+                            <span class="period">/month</span>
                         </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
+                        <p class="price-desc">Perfect for getting started</p>
                     </div>
-                    <div class="product-info">
-                        <h3>Premium Cotton T-Shirt</h3>
-                        <p class="product-price">$29.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>(4.5)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Classic Denim Jacket</h3>
-                        <p class="product-price">$89.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>(5.0)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-shoe-prints"></i>
-                        </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Designer Sneakers</h3>
-                        <p class="product-price">$149.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span>(4.0)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-glasses"></i>
-                        </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Premium Sunglasses</h3>
-                        <p class="product-price">$79.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>(4.7)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-watch"></i>
-                        </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Luxury Watch</h3>
-                        <p class="product-price">$299.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>(5.0)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-shopping-bag"></i>
-                        </div>
-                        <div class="product-overlay">
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Leather Handbag</h3>
-                        <p class="product-price">$199.99</p>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span>(4.2)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About Ntandostore</h2>
-                    <p>Welcome to Ntandostore, where fashion meets quality and style meets sophistication. Since our inception, we've been dedicated to bringing you the finest collection of premium fashion and lifestyle products.</p>
-                    <p>Our carefully curated selection features the latest trends in fashion, accessories, and lifestyle essentials. Each product is handpicked for its quality, design, and ability to enhance your personal style.</p>
-                    <p>At Ntandostore, we believe that everyone deserves to look and feel their best. That's why we're committed to providing exceptional customer service, fast shipping, and a shopping experience that's second to none.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>10K+</h3>
-                            <p>Happy Customers</p>
-                        </div>
-                        <div class="stat">
-                            <h3>500+</h3>
-                            <p>Products</p>
-                        </div>
-                        <div class="stat">
-                            <h3>24/7</h3>
-                            <p>Support</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="about-placeholder">
-                        <i class="fas fa-store"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Get In Touch</h2>
-                <p>We'd love to hear from you</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Visit Us</h3>
-                            <p>123 Fashion Street, Style City, SC 12345</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Call Us</h3>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email Us</h3>
-                            <p>info@ntandostore.com</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Ntando<span>Store</span></h3>
-                    <p>Your premier destination for premium fashion and lifestyle products.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 1 Server</li>
+                        <li><i class="fas fa-check"></i> 512MB RAM</li>
+                        <li><i class="fas fa-check"></i> 10GB Storage</li>
+                        <li><i class="fas fa-check"></i> 1 Database</li>
+                        <li><i class="fas fa-check"></i> Unlimited Bandwidth</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                        <li><i class="fas fa-check"></i> DDoS Protection</li>
+                        <li><i class="fas fa-times"></i> Custom Domains</li>
+                        <li><i class="fas fa-times"></i> Priority Support</li>
                     </ul>
+                    <button class="btn-secondary full-width" onclick="selectPlan('free')">
+                        Start Free
+                    </button>
                 </div>
-                <div class="footer-section">
-                    <h4>Categories</h4>
-                    <ul>
-                        <li><a href="#">Men's Fashion</a></li>
-                        <li><a href="#">Women's Fashion</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Lifestyle</a></li>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">
+                        <i class="fas fa-star"></i>
+                        Most Popular
+                    </div>
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">10</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="price-desc">For serious projects</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 5 Servers</li>
+                        <li><i class="fas fa-check"></i> 4GB RAM per server</li>
+                        <li><i class="fas fa-check"></i> 50GB Storage</li>
+                        <li><i class="fas fa-check"></i> Unlimited Databases</li>
+                        <li><i class="fas fa-check"></i> Unlimited Bandwidth</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                        <li><i class="fas fa-check"></i> DDoS Protection</li>
+                        <li><i class="fas fa-check"></i> Custom Domains</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
                     </ul>
+                    <button class="btn-primary full-width" onclick="selectPlan('premium')">
+                        Get Premium
+                    </button>
                 </div>
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Subscribe to get special offers and updates</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your email">
-                        <button type="submit">Subscribe</button>
-                    </form>
+                <div class="pricing-card enterprise">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">50</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="price-desc">For large teams</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited Servers</li>
+                        <li><i class="fas fa-check"></i> 8GB RAM per server</li>
+                        <li><i class="fas fa-check"></i> 200GB Storage</li>
+                        <li><i class="fas fa-check"></i> Unlimited Databases</li>
+                        <li><i class="fas fa-check"></i> Unlimited Bandwidth</li>
+                        <li><i class="fas fa-check"></i> 24/7 Phone Support</li>
+                        <li><i class="fas fa-check"></i> Advanced DDoS Protection</li>
+                        <li><i class="fas fa-check"></i> Custom Domains</li>
+                        <li><i class="fas fa-check"></i> SLA Guarantee</li>
+                    </ul>
+                    <button class="btn-dark full-width" onclick="selectPlan('enterprise')">
+                        Contact Sales
+                    </button>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Ntandostore. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <script src="js/script.js"></script>
+    <!-- Dashboard Section (Hidden by default) -->
+    <section class="dashboard-section" id="dashboard" style="display: none;">
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="dashboard-nav">
+                    <div class="nav-tabs">
+                        <button class="tab-btn active" onclick="switchDashboardTab('overview')">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Overview
+                        </button>
+                        <button class="tab-btn" onclick="switchDashboardTab('servers')">
+                            <i class="fas fa-server"></i>
+                            My Servers
+                        </button>
+                        <button class="tab-btn" onclick="switchDashboardTab('databases')">
+                            <i class="fas fa-database"></i>
+                            Databases
+                        </button>
+                        <button class="tab-btn" onclick="switchDashboardTab('billing')">
+                            <i class="fas fa-credit-card"></i>
+                            Billing
+                        </button>
+                        <button class="tab-btn" onclick="switchDashboardTab('settings')">
+                            <i class="fas fa-cog"></i>
+                            Settings
+                        </button>
+                    </div>
+                    <button class="btn-primary" onclick="showCreateServerModal()">
+                        <i class="fas fa-plus"></i>
+                        Create Server
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-content">
+            <div class="container">
+                <!-- Overview Tab -->
+                <div class="tab-content active" id="overview-tab">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="dashboard-servers">0</h3>
+                                <p>Total Servers</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon online">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="dashboard-online">0</h3>
+                                <p>Online</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="dashboard-databases">0</h3>
+                                <p>Databases</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon premium">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="dashboard-coins">0</h3>
+                                <p>Coins</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-list" id="activity-list">
+                                <div class="activity-item">
+                                    <i class="fas fa-server"></i>
+                                    <div class="activity-content">
+                                        <p>Server "My Bot" started</p>
+                                        <span>2 minutes ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3>Quick Actions</h3>
+                            <div class="quick-actions-grid">
+                                <button class="action-card" onclick="showCreateServerModal()">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Create Server</span>
+                                </button>
+                                <button class="action-card" onclick="showCreateDatabaseModal()">
+                                    <i class="fas fa-database"></i>
+                                    <span>Create Database</span>
+                                </button>
+                                <button class="action-card" onclick="navigateToBilling()">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Upgrade Plan</span>
+                                </button>
+                                <button class="action-card" onclick="openSupportChat()">
+                                    <i class="fas fa-headset"></i>
+                                    <span>Get Support</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Servers Tab -->
+                <div class="tab-content" id="servers-tab">
+                    <div class="servers-toolbar">
+                        <div class="toolbar-left">
+                            <button class="btn-primary" onclick="showCreateServerModal()">
+                                <i class="fas fa-plus"></i>
+                                Create Server
+                            </button>
+                            <button class="btn-secondary" onclick="refreshServers()">
+                                <i class="fas fa-sync"></i>
+                                Refresh
+                            </button>
+                        </div>
+                        <div class="toolbar-right">
+                            <select class="filter-select" onchange="filterServers(this.value)">
+                                <option value="all">All Servers</option>
+                                <option value="online">Online</option>
+                                <option value="offline">Offline</option>
+                                <option value="starting">Starting</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="servers-grid" id="servers-grid">
+                        <!-- Servers will be populated here -->
+                    </div>
+                </div>
+                
+                <!-- Other tabs content will be added similarly -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Server Modal -->
+    <div class="modal" id="create-server-modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2>Create New Server</h2>
+                <button class="modal-close" onclick="closeModal('create-server-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="server-wizard">
+                    <div class="wizard-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Basic Info</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Configuration</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-title">Review</span>
+                        </div>
+                    </div>
+                    
+                    <div class="wizard-content">
+                        <!-- Step 1: Basic Info -->
+                        <div class="wizard-step active" id="step-1">
+                            <div class="form-group">
+                                <label>Server Name</label>
+                                <input type="text" id="server-name" placeholder="My Awesome Bot">
+                            </div>
+                            <div class="form-group">
+                                <label>Server Type</label>
+                                <div class="server-types">
+                                    <div class="server-type-card" onclick="selectServerType('discord-bot')">
+                                        <i class="fab fa-discord"></i>
+                                        <h4>Discord Bot</h4>
+                                        <p>Perfect for Discord applications</p>
+                                    </div>
+                                    <div class="server-type-card" onclick="selectServerType('game-server')">
+                                        <i class="fas fa-gamepad"></i>
+                                        <h4>Game Server</h4>
+                                        <p>Host your favorite games</p>
+                                    </div>
+                                    <div class="server-type-card" onclick="selectServerType('web-app')">
+                                        <i class="fas fa-globe"></i>
+                                        <h4>Web Application</h4>
+                                        <p>Deploy web applications</p>
+                                    </div>
+                                    <div class="server-type-card" onclick="selectServerType('database')">
+                                        <i class="fas fa-database"></i>
+                                        <h4>Database</h4>
+                                        <p>Database hosting</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Configuration -->
+                        <div class="wizard-step" id="step-2">
+                            <div class="form-group">
+                                <label>Runtime/Environment</label>
+                                <select id="server-runtime">
+                                    <option value="nodejs">Node.js</option>
+                                    <option value="python">Python</option>
+                                    <option value="java">Java</option>
+                                    <option value="deno">Deno</option>
+                                    <option value="lua">Lua</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Region</label>
+                                <select id="server-region">
+                                    <option value="us-east">US East</option>
+                                    <option value="us-west">US West</option>
+                                    <option value="eu">Europe</option>
+                                    <option value="asia">Asia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Resources</label>
+                                <div class="resource-options">
+                                    <div class="resource-card selected">
+                                        <h4>Free</h4>
+                                        <p>512MB RAM, 10GB Storage</p>
+                                    </div>
+                                    <div class="resource-card">
+                                        <h4>Premium</h4>
+                                        <p>4GB RAM, 50GB Storage</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Step 3: Review -->
+                        <div class="wizard-step" id="step-3">
+                            <div class="review-summary">
+                                <h3>Server Summary</h3>
+                                <div class="summary-item">
+                                    <label>Name:</label>
+                                    <span id="review-name">My Server</span>
+                                </div>
+                                <div class="summary-item">
+                                    <label>Type:</label>
+                                    <span id="review-type">Discord Bot</span>
+                                </div>
+                                <div class="summary-item">
+                                    <label>Runtime:</label>
+                                    <span id="review-runtime">Node.js</span>
+                                </div>
+                                <div class="summary-item">
+                                    <label>Region:</label>
+                                    <span id="review-region">US East</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wizard-actions">
+                        <button class="btn-secondary" onclick="previousStep()" id="prev-btn" style="display: none;">
+                            Previous
+                        </button>
+                        <button class="btn-primary" onclick="nextStep()" id="next-btn">
+                            Next
+                        </button>
+                        <button class="btn-primary" onclick="createServer()" id="create-btn" style="display: none;">
+                            Create Server
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="server-script.js"></script>
 </body>
 </html>
